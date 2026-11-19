@@ -47,3 +47,44 @@ body.shot-cover #preview { width: auto; height: 100vh; max-width: 100vw; max-hei
   .studio { grid-template-columns: 1fr; }
   .previewPane { position: static; }
 }
+
+/* Print: keep the poster's true aspect and the desktop two-column editor.
+   Chromium lays print pages out at letter width (<=900px), so without
+   these rules the cover canvas is stretched into the portrait page box
+   and the editor collapses to one column. */
+@media print {
+  /* Editor: force the desktop two-column grid regardless of print width,
+     overriding the max-width:900px collapse above; the poster preview
+     then sits beside steps 1-2 on page 1. */
+  .studio {
+    grid-template-columns: 380px minmax(0, 1fr) !important;
+  }
+  .previewPane {
+    position: static;
+  }
+  #preview {
+    width: 100%;
+    height: auto;
+    max-height: none;
+  }
+
+  /* Cover-only scene: the canvas renders at its true aspect — width 100%
+     of the printable area, height auto — centred vertically on the page.
+     (In print 100vh is the printable height, so min-height fills page 1
+     exactly and the flex centring leaves dark bars above/below the strip;
+     the .studio flex must not stretch the canvas.) */
+  body.shot-cover .studio {
+    align-items: center;
+    min-height: 100vh;
+  }
+  body.shot-cover .previewPane {
+    width: 100%;
+  }
+  body.shot-cover #preview {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: none;
+  }
+}
