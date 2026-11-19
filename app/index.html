@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vice Coast Cover Studio — GTA-style cover art maker</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="topbar">
+  <h1>Vice Coast <span>Cover Studio</span></h1>
+  <p>Your photos, a Vice City sunset, one shareable poster. Everything runs offline — photos never leave your machine.</p>
+</header>
+<main class="studio">
+  <section class="steps" aria-label="Cover editor steps">
+    <div class="step" id="step1">
+      <h2><span class="num">1</span> Photos</h2>
+      <p>Add your own photos, or try a sample. Click a panel on the poster to choose where a photo goes.</p>
+      <label class="filebtn">Add photos from your machine
+        <input id="fileInput" type="file" accept="image/*" multiple>
+      </label>
+      <div class="row">
+        <button type="button" data-sample="neon">Sample: Neon Driver</button>
+        <button type="button" data-sample="pier">Sample: Sunset Pier</button>
+      </div>
+      <button type="button" id="fillAll">Fill every panel with this photo</button>
+      <p class="hint">Tip: drag a photo file from anywhere and drop it on the page.</p>
+    </div>
+    <div class="step" id="step2">
+      <h2><span class="num">2</span> Frame the panel</h2>
+      <p>Drag the poster to move the photo, scroll to zoom — or use the sliders.</p>
+      <div class="row wrap" id="panelDots" aria-label="Choose a panel"></div>
+      <label>Zoom <input id="zoom" type="range" min="1" max="4" step="0.05" value="1"></label>
+      <label>Shift across <input id="shiftX" type="range" min="-1" max="1" step="0.01" value="0"></label>
+      <label>Shift up / down <input id="shiftY" type="range" min="-1" max="1" step="0.01" value="0"></label>
+      <button type="button" id="resetFrame">Reset framing</button>
+    </div>
+    <div class="step" id="step3">
+      <h2><span class="num">3</span> Caption &amp; grade</h2>
+      <label>Title <input id="titleInput" type="text" maxlength="24" value="NEON COAST"></label>
+      <label>Tagline <input id="taglineInput" type="text" maxlength="40" value="Vice City nights"></label>
+      <p class="sub">Layout</p>
+      <div class="row wrap" id="layoutRow">
+        <button type="button" data-layout="five" class="on">Five panels</button>
+        <button type="button" data-layout="trio">Hero + three</button>
+        <button type="button" data-layout="solo">Full bleed</button>
+      </div>
+      <p class="sub">Colour grade</p>
+      <div class="row wrap" id="gradeRow">
+        <button type="button" data-grade="neon" class="on">Neon Nights</button>
+        <button type="button" data-grade="sunset">Sunset Gold</button>
+        <button type="button" data-grade="pastel">Pastel Vice</button>
+        <button type="button" data-grade="midnight">Midnight Teal</button>
+        <button type="button" data-grade="coral">Coral Dusk</button>
+      </div>
+    </div>
+    <div class="step" id="step4">
+      <h2><span class="num">4</span> Export</h2>
+      <p>Pick a post size, then save the poster as a PNG.</p>
+      <div class="row wrap" id="sizeRow">
+        <button type="button" data-size="square" class="on">1080 × 1080</button>
+        <button type="button" data-size="portrait">1080 × 1350</button>
+        <button type="button" data-size="wide">1920 × 1080</button>
+      </div>
+      <div class="row wrap">
+        <button type="button" class="export" data-export="square">Save PNG · 1080 × 1080</button>
+        <button type="button" class="export" data-export="portrait">Save PNG · 1080 × 1350</button>
+        <button type="button" class="export" data-export="wide">Save PNG · 1920 × 1080</button>
+      </div>
+      <p id="status" role="status"></p>
+    </div>
+  </section>
+  <section class="previewPane" aria-label="Live poster preview">
+    <canvas id="preview" width="1080" height="1080"></canvas>
+    <p class="hint">Live preview — every change shows here at once.</p>
+  </section>
+</main>
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>
